@@ -1,7 +1,16 @@
-const library = document.querySelector('#library');
+const library = document.getElementById('library');
+const newBook = document.getElementById('newBookButton');
+
+const form = document.getElementById('newbookform');
+const title = form.elements['title'];
+const author = form.elements['author'];
+const pages = form.elements['pages'];
+const read = form.elements['read'];
+const submit = document.getElementById('submit');
 
 let myLibrary = [];
 
+// To be utilized in form for adding a new book.
 function Book(title, author, pages, read) {
     this.title = title,
     this.author = author,
@@ -9,32 +18,50 @@ function Book(title, author, pages, read) {
     this.read = read
 }
 
+// Adds book object to array.
 function addBookToLibrary(book) {
     myLibrary.push(book)
 }
 
-function displayBooks(theLibrary) {
+// Iterates through myLibrary Book objects. Creates div class='book' and creates/appends respective text elements
+// to book div.
+function displayLibrary(theLibrary) {
     for (let book of theLibrary) {
-        const LibBook = document.createElement('div');
-        LibBook.classList.add('book');
+        displayBook(book)
+    }
+}
 
+function displayBook(book) {
+    const LibBook = document.createElement('div');
+        LibBook.classList.add('book');
         const LibTitle = document.createElement('h3');
         LibTitle.textContent = book.title;
         const LibAuthor = document.createElement('h3');
         LibAuthor.textContent = book.author;
         const LibPages = document.createElement('p');
         LibPages.textContent = book.pages;
-        const LibRead = document.createElement('h6')
+        const LibRead = document.createElement('h6');
         LibRead.textContent = book.read;
 
         LibBook.appendChild(LibTitle)
         LibBook.appendChild(LibAuthor)
         LibBook.appendChild(LibPages)
-        LibBook.appendChild(LibRead)
-        
+        LibBook.appendChild(LibRead) 
         library.appendChild(LibBook)
-    }
 }
+
+// Event Listeners
+
+// Toggles form visibility by toggling CSS class.
+newBook.addEventListener('click', function (e) {
+    form.classList.toggle('invisible');
+})
+
+submit.addEventListener('click', function (e) {
+    let submittedBook = new Book (title.value, author.value, pages.value, read.value);
+    addBookToLibrary(submittedBook);
+    displayBook(submittedBook);
+});
 
 // --------------------------------- //
 
@@ -44,4 +71,4 @@ const book2 = new Book('Harry Potter and the Order of the Phoenix', 'J.K. Rowlin
 addBookToLibrary(book1)
 addBookToLibrary(book2)
 
-displayBooks(myLibrary)
+displayLibrary(myLibrary)
