@@ -33,23 +33,33 @@ function displayLibrary(theLibrary) {
 }
 
 function displayBook(book) {
-    const LibBook = document.createElement('div');
+    let LibBook = document.createElement('div');
     LibBook.classList.add('book');
-    const LibTitle = document.createElement('h3');
+
+    let bookIndex = myLibrary.indexOf(book);
+    LibBook.setAttribute('data-index-number', bookIndex)
+
+    let LibTitle = document.createElement('h3');
     LibTitle.textContent = book.title;
-    const LibAuthor = document.createElement('h3');
+    let LibAuthor = document.createElement('h3');
     LibAuthor.textContent = book.author;
-    const LibPages = document.createElement('p');
+    let LibPages = document.createElement('p');
     LibPages.textContent = book.pages;
-    const LibRead = document.createElement('h6');
-    const bookIndex = myLibrary.indexOf(book);
+    let LibRead = document.createElement('h6');
 
-
-    const deleteButton = document.createElement('button');
+    let deleteButton = document.createElement('button');
     deleteButton.textContent = 'X';
     deleteButton.classList.add('delete-button');
     deleteButton.addEventListener('click', function (e) {
         library.removeChild(LibBook)
+        myLibrary.splice(myLibrary.indexOf(book), 1)
+        console.log(myLibrary)
+
+    const readButton = document.createElement('button');
+    readButton.addEventListener('click', function (e) {
+        // ((book.read = false) ? book.read = true : book.read = false)
+    });
+        
     });
 
     LibRead.textContent = book.read;
@@ -64,11 +74,12 @@ function displayBook(book) {
 
 // Event Listeners
 
-// Toggles form visibility by toggling CSS class.
+// Changes form visibility by toggling CSS class.
 newBook.addEventListener('click', function (e) {
     form.classList.toggle('invisible');
 });
 
+// Adds new book to myLibrary array and displays respective book element on DOM.
 submit.addEventListener('click', function (e) {
     let submittedBook = new Book (title.value, author.value, pages.value, read.value);
     addBookToLibrary(submittedBook);
@@ -82,5 +93,4 @@ const book2 = new Book('Harry Potter and the Order of the Phoenix', 'J.K. Rowlin
 
 addBookToLibrary(book1)
 addBookToLibrary(book2)
-
 displayLibrary(myLibrary)
