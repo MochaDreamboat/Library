@@ -29,24 +29,36 @@ function displayLibrary(theLibrary) {
     for (let book of theLibrary) {
         displayBook(book)
     }
+
 }
 
 function displayBook(book) {
     const LibBook = document.createElement('div');
-        LibBook.classList.add('book');
-        const LibTitle = document.createElement('h3');
-        LibTitle.textContent = book.title;
-        const LibAuthor = document.createElement('h3');
-        LibAuthor.textContent = book.author;
-        const LibPages = document.createElement('p');
-        LibPages.textContent = book.pages;
-        const LibRead = document.createElement('h6');
-        LibRead.textContent = book.read;
+    LibBook.classList.add('book');
+    const LibTitle = document.createElement('h3');
+    LibTitle.textContent = book.title;
+    const LibAuthor = document.createElement('h3');
+    LibAuthor.textContent = book.author;
+    const LibPages = document.createElement('p');
+    LibPages.textContent = book.pages;
+    const LibRead = document.createElement('h6');
+    const bookIndex = myLibrary.indexOf(book);
+
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'X';
+    deleteButton.classList.add('delete-button');
+    deleteButton.addEventListener('click', function (e) {
+        library.removeChild(LibBook)
+    });
+
+    LibRead.textContent = book.read;
 
         LibBook.appendChild(LibTitle)
         LibBook.appendChild(LibAuthor)
         LibBook.appendChild(LibPages)
-        LibBook.appendChild(LibRead) 
+        LibBook.appendChild(LibRead)
+        LibBook.appendChild(deleteButton) 
         library.appendChild(LibBook)
 }
 
@@ -55,7 +67,7 @@ function displayBook(book) {
 // Toggles form visibility by toggling CSS class.
 newBook.addEventListener('click', function (e) {
     form.classList.toggle('invisible');
-})
+});
 
 submit.addEventListener('click', function (e) {
     let submittedBook = new Book (title.value, author.value, pages.value, read.value);
