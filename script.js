@@ -45,7 +45,27 @@ function displayBook(book) {
     LibAuthor.textContent = book.author;
     let LibPages = document.createElement('p');
     LibPages.textContent = book.pages;
-    let LibRead = document.createElement('h6');
+    let LibRead = document.createElement('button');
+    
+    LibRead.classList.add('read-button');
+    if (book.read == "read") {
+        LibRead.textContent = 'Read'
+        LibRead.classList.add('read')
+    } else {
+        LibRead.textContent = 'Not Read'
+    }
+
+    LibRead.addEventListener('click', function (e) {
+        LibRead.classList.toggle('read');
+        if (LibRead.classList.contains('read')) {
+            LibRead.textContent = 'Read'
+            book.value = 'read'
+        } else {
+            LibRead.textContent = 'Not Read'
+            book.value = 'unread'
+        }
+    });
+
 
     let deleteButton = document.createElement('button');
     deleteButton.textContent = 'X';
@@ -55,14 +75,9 @@ function displayBook(book) {
         myLibrary.splice(myLibrary.indexOf(book), 1)
         console.log(myLibrary)
 
-    const readButton = document.createElement('button');
-    readButton.addEventListener('click', function (e) {
-        // ((book.read = false) ? book.read = true : book.read = false)
-    });
+    
         
     });
-
-    LibRead.textContent = book.read;
 
         LibBook.appendChild(LibTitle)
         LibBook.appendChild(LibAuthor)

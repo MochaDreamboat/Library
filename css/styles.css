@@ -52,6 +52,14 @@ header {
     background-color: grey;
 }
 
+.read-button {
+    background-color: red;
+}
+
+.read {
+    background-color: green;
+}
+
 
 
 
